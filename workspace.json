@@ -4,6 +4,7 @@
   "projects": {
     "back": "apps/back",
     "front": "apps/front",
-    "front-e2e": "apps/front-e2e"
+    "front-e2e": "apps/front-e2e",
+    "scraper": "apps/scraper"
   }
 }
