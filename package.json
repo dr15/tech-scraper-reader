@@ -17,6 +17,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "regenerator-runtime": "0.13.7",
+    "rss": "^1.2.2",
+    "sanitize-filename": "^1.6.3",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
