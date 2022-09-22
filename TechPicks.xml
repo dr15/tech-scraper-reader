@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[TechPicks]]></title>
+        <description><![CDATA[Your source for daily aggregated tech/programming news and resources, by https://twitter.com/__tkore__Telegram channel - https://t.me/techpicks]]></description>
+        <link>https://t.me/s/techpicks</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Tue, 20 Sep 2022 06:51:09 GMT</lastBuildDate>
+        <author><![CDATA[@techpicks]]></author>
+        <item>
+            <title><![CDATA[Raytracing from the ground up]]></title>
+            <description><![CDATA[<a href="https://sidneys1.com/programming/2022/03/23/raytracing.html">https://sidneys1.com/programming/2022/03/23/raytracing.html</a>]]></description>
+            <link>https://sidneys1.com/programming/2022/03/23/raytracing.html</link>
+            <guid isPermaLink="true">https://sidneys1.com/programming/2022/03/23/raytracing.html</guid>
+            <dc:creator><![CDATA[@techpicks]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[A few thoughts about Uber's breach]]></title>
+            <description><![CDATA[<a href="https://cendyne.dev/posts/2022-09-19-a-few-thoughts-about-ubers-breach.html">https://cendyne.dev/posts/2022-09-19-a-few-thoughts-about-ubers-breach.html</a>]]></description>
+            <link>https://cendyne.dev/posts/2022-09-19-a-few-thoughts-about-ubers-breach.html</link>
+            <guid isPermaLink="true">https://cendyne.dev/posts/2022-09-19-a-few-thoughts-about-ubers-breach.html</guid>
+            <dc:creator><![CDATA[@techpicks]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA["How do I test X" is almost always answered with "by controlling X"]]></title>
+            <description><![CDATA[<a href="https://berk.es/2022/09/19/test-x-by-controlling-x/">https://berk.es/2022/09/19/test-x-by-controlling-x/</a>]]></description>
+            <link>https://berk.es/2022/09/19/test-x-by-controlling-x/</link>
+            <guid isPermaLink="true">https://berk.es/2022/09/19/test-x-by-controlling-x/</guid>
+            <dc:creator><![CDATA[@techpicks]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[How to Outperform a 10x Developer]]></title>
+            <description><![CDATA[<a href="https://betterprogramming.pub/how-to-outperform-a-10x-developer-fa1132807934">https://betterprogramming.pub/how-to-outperform-a-10x-developer-fa1132807934</a>]]></description>
+            <link>https://betterprogramming.pub/how-to-outperform-a-10x-developer-fa1132807934</link>
+            <guid isPermaLink="true">https://betterprogramming.pub/how-to-outperform-a-10x-developer-fa1132807934</guid>
+            <dc:creator><![CDATA[@techpicks]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[How I'm a Productive Programmer With a Memory of a Fruit Fly]]></title>
+            <description><![CDATA[<a href="https://hynek.me/articles/productive-fruit-fly-programmer/">https://hynek.me/articles/productive-fruit-fly-programmer/</a>]]></description>
+            <link>https://hynek.me/articles/productive-fruit-fly-programmer/</link>
+            <guid isPermaLink="true">https://hynek.me/articles/productive-fruit-fly-programmer/</guid>
+            <dc:creator><![CDATA[@techpicks]]></dc:creator>
+        </item>
+        <item>
+            <title><![CDATA[How I manage my passwords]]></title>
+            <description><![CDATA[<a href="https://bitspook.in/blog/how-i-manage-my-passwords/">https://bitspook.in/blog/how-i-manage-my-passwords/</a>]]></description>
+            <link>https://bitspook.in/blog/how-i-manage-my-passwords/</link>
+            <guid isPermaLink="true">https://bitspook.in/blog/how-i-manage-my-passwords/</guid>
+            <dc:creator><![CDATA[@techpicks]]></dc:creator>
+        </item>
+    </channel>
+</rss>

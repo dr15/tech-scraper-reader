@@ -52,7 +52,13 @@
         "style": "css",
         "linter": "eslint"
       }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "@emotion/styled",
+        "linter": "eslint"
+      }
     }
   },
-  "defaultProject": "front"
+  "defaultProject": "reader"
 }

@@ -2,9 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "back": "apps/back",
-    "front": "apps/front",
-    "front-e2e": "apps/front-e2e",
+    "reader": "apps/reader",
+    "reader-e2e": "apps/reader-e2e",
     "scraper": "apps/scraper"
   }
 }
