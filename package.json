@@ -27,6 +27,7 @@
     "react-dom": "18.2.0",
     "regenerator-runtime": "0.13.7",
     "rss": "^1.2.2",
+    "rss-parser": "^3.12.0",
     "sanitize-filename": "^1.6.3",
     "tslib": "^2.3.0"
   },
