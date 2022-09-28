@@ -6,6 +6,7 @@ import {
   ScrollArea,
   createStyles,
   ThemeIcon,
+  Loader,
 } from '@mantine/core';
 import {
   IconGauge,
@@ -17,9 +18,10 @@ import {
 } from '@tabler/icons';
 import Parser from 'rss-parser';
 
-import { UserButton } from '../components/UserButton';
-import { LinksGroup } from '../components/NavbarLinksGroup';
-import FeedList from '../components/feedList';
+import { UserButton } from '../../components/UserButton';
+import { LinksGroup } from '../../components/NavbarLinksGroup';
+import FeedList from '../../components/feedList';
+import useStore, { PostItem } from '../../utils/store/store';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const mockFeeds = [
@@ -36,8 +38,8 @@ const mockFeeds = [
 const mockdata = [
   { label: 'Dashboard', icon: IconGauge },
   { label: 'All Items', icon: IconList },
-  { label: 'bookmarked', icon: IconBookmark },
-  { label: 'comments', icon: IconMessage },
+  { label: 'Bookmarked', icon: IconBookmark },
+  { label: 'Comments', icon: IconMessage },
   {
     label: 'Feeds',
     icon: IconRss,
@@ -48,7 +50,7 @@ const mockdata = [
         link: '/',
         rssUrl: 'cult.honeypot.io/rss.xml',
       },
-      { label: 'CSS Tricks', link: '/', rssUrl: 'css-tricks.com/feed/' },
+      // { label: 'CSS Tricks', link: '/', rssUrl: 'css-tricks.com/feed/' },
       { label: 'Dev.to', link: '/', rssUrl: 'dev.to/feed' },
     ],
   },
@@ -98,38 +100,61 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+async function fetchFeed(url: string): Promise<PostItem[]> {
+  const d = await fetch(`/api/rss/${url}`)
+    .then((response) => response.text())
+    .then((str) => {
+      // const text = new window.DOMParser().parseFromString(str, 'text/xml');
+
+      const parser: Parser = new Parser();
+      return parser.parseString(str).then((feed) => {
+        const data = feed.items.map((item) => {
+          return {
+            title: item.title,
+            link: item.link,
+            date: item.pubDate,
+            content: item.content,
+            author: item.creator,
+            //guid
+          };
+        });
+
+        return data;
+      });
+    });
+
+  console.log('about to return d', d);
+  return d;
+}
+
 export default function Reader() {
   const { classes } = useStyles();
+
+  const feeds = useStore<PostItem[][]>((state) => state.feeds);
+  const addFeed = useStore((state) => state.addFeed);
+  // const { feeds, addFeed } = useStore(
+  //   (state) => ({ feeds: state.feeds, addFeed: state.addFeed }),
+  //   shallow
+  // );
+
   const links = mockdata.map((item) => (
     <LinksGroup {...item} key={item.label} />
   ));
-  const [data, setData] = useState([]);
-  const [, setLoading] = useState(false);
+  // const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`/api/rss/${mockdata[4].links[2].rssUrl}`)
-      .then((response) => response.text())
-      .then((str) => {
-        const text = new window.DOMParser().parseFromString(str, 'text/xml');
-        setLoading(false);
-        console.log(text);
+    async function fetchData() {
+      setLoading(true);
 
-        const parser: Parser = new Parser();
-        parser.parseString(str).then((feed) => {
-          const data = feed.items.map((item) => {
-            return {
-              title: item.title,
-              date: item.pubDate,
-              link: item.link,
-              content: item.content,
-              author: item.creator,
-              //guid
-            };
-          });
-          setData(data);
-        });
-      });
+      const data = await fetchFeed(mockdata[4].links[1].rssUrl);
+      addFeed(data);
+
+      setLoading(false);
+    }
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -169,7 +194,7 @@ export default function Reader() {
         </Navbar>
       }
     >
-      <FeedList items={data} />
+      {loading ? <Loader size="lg" /> : <FeedList items={feeds[0]} />}
     </AppShell>
   );
 }

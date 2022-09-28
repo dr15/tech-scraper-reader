@@ -1,4 +1,5 @@
 import { Group, Text, Card, Title, createStyles } from '@mantine/core';
+import { PostItem } from '../utils/store/store';
 
 const useStyles = createStyles((theme) => ({
   stack: {
@@ -13,24 +14,13 @@ const useStyles = createStyles((theme) => ({
     '& code': {
       whiteSpace: 'normal', //TODO: check if this should be true for all text
     },
+    '& iframe': {
+      maxWidth: '100%',
+    },
   },
 }));
 
-interface FeedItemProps {
-  title: string;
-  date: string;
-  link: string;
-  author?: string;
-  content?: string;
-}
-
-export function FeedItem({
-  title,
-  date,
-  link,
-  author,
-  content,
-}: FeedItemProps) {
+export function FeedItem({ title, date, link, author, content }: PostItem) {
   const { classes } = useStyles();
 
   return (
@@ -57,15 +47,11 @@ export function FeedItem({
 }
 
 interface FeedListProps {
-  items?: FeedItemProps[];
+  items?: PostItem[];
 }
 
 export default function FeedList({ items }: FeedListProps) {
   return (
-    <>
-      {items.map((item) => (
-        <FeedItem {...item} key={item.link} />
-      ))}
-    </>
+    <>{items && items.map((item) => <FeedItem {...item} key={item.link} />)}</>
   );
 }
