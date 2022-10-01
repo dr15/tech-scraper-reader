@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import ReaderLayout from '../../components/ReaderLayout';
 
 const StyledPage = styled.div`
   width: 100%;
@@ -16,5 +17,7 @@ export function Bookmarked() {
     </StyledPage>
   );
 }
+
+Bookmarked.Layout = ReaderLayout;
 
 export default Bookmarked;

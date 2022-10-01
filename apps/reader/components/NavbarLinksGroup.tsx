@@ -63,11 +63,17 @@ interface LinksGroupProps {
   icon: TablerIcon;
   label: string;
   initiallyOpened?: boolean;
+  link?: string;
   links?: { label: string; link: string }[];
 }
 
 function LinkWrapper({ hasLinks, href, children }) {
-  if (!hasLinks) return <Link href={href}>{children}</Link>;
+  if (!hasLinks)
+    return (
+      <Link href={href}>
+        <a>{children}</a>
+      </Link>
+    );
 
   return <>{children}</>;
 }
@@ -76,6 +82,7 @@ export function LinksGroup({
   icon: Icon,
   label,
   initiallyOpened,
+  link,
   links,
 }: LinksGroupProps) {
   const { classes, theme } = useStyles();
@@ -97,10 +104,7 @@ export function LinksGroup({
 
   return (
     <div>
-      <LinkWrapper
-        href={`reader/${label}`.toLocaleLowerCase()}
-        hasLinks={hasLinks}
-      >
+      <LinkWrapper href={link} hasLinks={hasLinks}>
         <>
           <UnstyledButton
             onClick={() => setOpened((o) => !o)}
