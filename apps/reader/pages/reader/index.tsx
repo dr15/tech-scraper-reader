@@ -9,7 +9,7 @@ import {
 } from '@tabler/icons';
 import Parser from 'rss-parser';
 
-import FeedList from '../../components/FeedList';
+import PostList from '../../components/PostList';
 import useStore, { PostItem } from '../../utils/store/store';
 import ReaderLayout from '../../components/ReaderLayout';
 
@@ -92,7 +92,7 @@ function Reader() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <>{loading ? <Loader size="lg" /> : <FeedList items={feeds[0]} />}</>;
+  return <>{loading ? <Loader size="lg" /> : <PostList items={feeds[0]} />}</>;
 }
 
 Reader.Layout = ReaderLayout;

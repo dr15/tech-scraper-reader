@@ -10,37 +10,35 @@ export interface PostItem {
   author?: string;
   guid?: string;
 }
+export interface Feed {
+  title: string;
+  link: string;
+  description?: string;
+  posts: PostItem[];
+}
 
 export interface AppState {
   feeds: PostItem[][];
   addFeed: (feed: PostItem[]) => void;
+  currentReaderPath?: string;
+  setCurrentPath?: (path: string) => void;
 }
 
 const useStore = create<AppState>()(
   devtools(
     immer((set) => ({
       feeds: [],
+      currentReaderPath: '/dashboard',
       addFeed: (feed: PostItem[]) =>
         set((state) => {
           state.feeds.push(feed);
+        }),
+      setCurrentPath: (path: string) =>
+        set((state) => {
+          state.currentReaderPath = path;
         }),
     }))
   )
 );
 
 export default useStore;
-
-// import produce from 'immer'
-
-// const useLushStore = create((set) => ({
-//   lush: { forest: { contains: { a: 'bear' } } },
-//   clearForest: () =>
-//     set(
-//       produce((state) => {
-//         state.lush.forest.contains = null
-//       })
-//     ),
-// }))
-
-// const clearForest = useLushStore((state) => state.clearForest)
-// clearForest()

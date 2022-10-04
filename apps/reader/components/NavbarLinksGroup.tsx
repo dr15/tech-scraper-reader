@@ -4,12 +4,16 @@ import {
   Box,
   Collapse,
   ThemeIcon,
-  Text,
   UnstyledButton,
   createStyles,
 } from '@mantine/core';
 import { TablerIcon, IconChevronLeft, IconChevronRight } from '@tabler/icons';
 import Link from 'next/link';
+import cn from 'classnames';
+
+import useStore from '../utils/store/store';
+import FeedList from './FeedList';
+import { getLinkTabName, isCurrentTab } from '../utils/readerUtils';
 
 const useStyles = createStyles((theme) => ({
   control: {
@@ -57,6 +61,10 @@ const useStyles = createStyles((theme) => ({
   chevron: {
     transition: 'transform 200ms ease',
   },
+
+  current: {
+    boxShadow: `0 0 0 1px ${theme.primaryColor} inset`,
+  },
 }));
 
 interface LinksGroupProps {
@@ -68,14 +76,13 @@ interface LinksGroupProps {
 }
 
 function LinkWrapper({ hasLinks, href, children }) {
-  if (!hasLinks)
-    return (
-      <Link href={href}>
-        <a>{children}</a>
-      </Link>
-    );
+  if (hasLinks) return <>{children}</>;
 
-  return <>{children}</>;
+  return (
+    <Link href={href} passHref>
+      {children}
+    </Link>
+  );
 }
 
 export function LinksGroup({
@@ -86,54 +93,53 @@ export function LinksGroup({
   links,
 }: LinksGroupProps) {
   const { classes, theme } = useStyles();
+
+  const currentPath = useStore<string>((state) => state.currentReaderPath);
+  const setCurrentPath = useStore((state) => state.setCurrentPath);
+
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
   const ChevronIcon = theme.dir === 'ltr' ? IconChevronRight : IconChevronLeft;
-
-  const items = (hasLinks ? links : []).map((link) => (
-    <Text<'a'>
-      component="a"
-      className={classes.link}
-      href={link.link}
-      key={link.label}
-      onClick={(event) => event.preventDefault()}
-    >
-      {link.label}
-    </Text>
-  ));
+  const isCurrent = isCurrentTab(link, currentPath);
 
   return (
     <div>
       <LinkWrapper href={link} hasLinks={hasLinks}>
-        <>
-          <UnstyledButton
-            onClick={() => setOpened((o) => !o)}
-            className={classes.control}
-          >
-            <Group position="apart" spacing={0}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <ThemeIcon variant="light" size={30}>
-                  <Icon size={18} />
-                </ThemeIcon>
-                <Box ml="md">{label}</Box>
-              </Box>
-              {hasLinks && (
-                <ChevronIcon
-                  className={classes.chevron}
-                  size={14}
-                  stroke={1.5}
-                  style={{
-                    transform: opened
-                      ? `rotate(${theme.dir === 'rtl' ? -90 : 90}deg)`
-                      : 'none',
-                  }}
-                />
-              )}
-            </Group>
-          </UnstyledButton>
-          {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
-        </>
+        <UnstyledButton
+          component="a"
+          onClick={() => {
+            setOpened((o) => !o);
+            if (link && !links) setCurrentPath(`/${getLinkTabName(link)}`);
+          }}
+          className={cn([classes.control, { [classes.current]: isCurrent }])}
+        >
+          <Group position="apart" spacing={0}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <ThemeIcon variant="light" size={30}>
+                <Icon size={18} />
+              </ThemeIcon>
+              <Box ml="md">{label}</Box>
+            </Box>
+            {hasLinks && (
+              <ChevronIcon
+                className={classes.chevron}
+                size={14}
+                stroke={1.5}
+                style={{
+                  transform: opened
+                    ? `rotate(${theme.dir === 'rtl' ? -90 : 90}deg)`
+                    : 'none',
+                }}
+              />
+            )}
+          </Group>
+        </UnstyledButton>
       </LinkWrapper>
+      {hasLinks ? (
+        <Collapse in={opened}>
+          <FeedList links={links} />
+        </Collapse>
+      ) : null}
     </div>
   );
 }

@@ -40,6 +40,7 @@ const mockdata = [
     label: 'Feeds',
     icon: IconRss,
     initiallyOpened: true,
+    link: '/feeds',
     links: [
       {
         label: 'Cult by Honeypot',

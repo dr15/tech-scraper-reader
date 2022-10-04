@@ -1,57 +1,54 @@
-import { Group, Text, Card, Title, createStyles } from '@mantine/core';
-import { PostItem } from '../utils/store/store';
+import { Text, createStyles } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
-  stack: {
-    height: 'auto',
-    backgroundColor: 'red',
+  link: {
+    fontWeight: 500,
+    display: 'block',
+    textDecoration: 'none',
+    padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
+    paddingLeft: 31,
+    marginLeft: 30,
+    fontSize: theme.fontSizes.sm,
+    color:
+      theme.colorScheme === 'dark'
+        ? theme.colors.dark[0]
+        : theme.colors.gray[7],
+    borderLeft: `1px solid ${
+      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
+    }`,
+
+    '&:hover': {
+      backgroundColor:
+        theme.colorScheme === 'dark'
+          ? theme.colors.dark[7]
+          : theme.colors.gray[0],
+      color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+    },
   },
-  itemCard: {
-    '& img': {
-      maxWidth: '100%',
-      height: 'auto',
-    },
-    '& code': {
-      whiteSpace: 'normal', //TODO: check if this should be true for all text
-    },
-    '& iframe': {
-      maxWidth: '100%',
-    },
+
+  chevron: {
+    transition: 'transform 200ms ease',
   },
 }));
 
-export function FeedItem({ title, date, link, author, content }: PostItem) {
-  const { classes } = useStyles();
+export default function FeedList({ links }: any) {
+  const { classes, theme } = useStyles();
 
   return (
-    <Card
-      shadow="sm"
-      p="lg"
-      radius="md"
-      withBorder
-      mb="md"
-      className={classes.itemCard}
-    >
-      <Group>
-        <a href={link}>
-          <Title order={2}>{title}</Title>
-        </a>
-        {author && <Text size="sm">{author}</Text>}
-        <Text size="xs" color="dimmed">
-          {date}
+    <>
+      {links.map((link, index) => (
+        <Text<'a'>
+          component="a"
+          className={classes.link}
+          href={link.link}
+          key={link.label}
+          onClick={(event) => {
+            event.preventDefault();
+          }}
+        >
+          {link.label}
         </Text>
-      </Group>
-      {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
-    </Card>
-  );
-}
-
-interface FeedListProps {
-  items?: PostItem[];
-}
-
-export default function FeedList({ items }: FeedListProps) {
-  return (
-    <>{items && items.map((item) => <FeedItem {...item} key={item.link} />)}</>
+      ))}
+    </>
   );
 }
